@@ -1,0 +1,946 @@
+﻿
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Will You Be My Girlfriend? ♡</title>
+
+
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    font-family: 'Segoe UI', sans-serif;
+    background:
+        radial-gradient(circle at 12% 15%, rgba(255, 255, 255, 0.9), transparent 30%),
+        radial-gradient(circle at 88% 85%, rgba(255, 210, 225, 0.55), transparent 32%),
+        linear-gradient(135deg, #fff1f5, #ffe4ec 52%, #fff7f9);
+    color: #654452;
+}
+
+.container {
+    width: 100%;
+    max-width: 560px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 40px 34px;
+    border: 1px solid rgba(221, 143, 169, 0.2);
+    border-radius: 28px;
+    box-shadow: 0 24px 70px rgba(153, 77, 106, 0.16);
+    backdrop-filter: blur(12px);
+}
+
+.subtitle {
+    color: #bd6d89;
+    margin-bottom: 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+header h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: #613c4b;
+}
+
+.photo-wrapper {
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    padding: 8px;
+    background: linear-gradient(135deg, #fff, #fff1f5);
+    border: 1px solid #f4dce5;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(127, 66, 91, 0.12);
+    overflow: hidden;
+}
+
+.photo-wrapper img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 302px;
+    object-fit: contain;
+    border-radius: 14px;
+}
+
+.gallery h2 {
+    margin-top: 24px;
+    font-family: Georgia, serif;
+    font-size: clamp(1.25rem, 5vw, 1.55rem);
+    color: #724456;
+}
+
+#description {
+    margin-top: 10px;
+    color: #8d6c79;
+    line-height: 1.6;
+    min-height: 45px;
+}
+
+#counter {
+    margin-top: 15px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #b96c88;
+}
+
+
+
+.progress {
+
+    width: 100%;
+
+    height: 7px;
+    background: #f6e5eb;
+    border-radius: 10px;
+    margin: 12px 0 20px;
+    overflow: hidden;
+}
+
+#progressBar {
+    height: 100%;
+    background: linear-gradient(90deg, #d77c9b, #eea2ba);
+    border-radius: inherit;
+    transition: width 0.35s ease;
+}
+
+
+
+.navigation, .answer-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+}
+
+
+
+.navigation {
+
+    justify-content: space-between;
+
+}
+
+
+
+button {
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:focus-visible,
+#userMessage:focus-visible {
+    outline: 3px solid rgba(191, 102, 136, 0.55);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#prevBtn {
+    background: #f8e9ee;
+    color: #92536b;
+}
+
+#prevBtn:hover {
+    background: #f3dbe4;
+}
+
+#nextBtn {
+    background: #cf7695;
+    color: white;
+    box-shadow: 0 5px 14px rgba(184, 91, 124, 0.2);
+}
+
+#nextBtn:hover {
+    background: #bd6685;
+    box-shadow: 0 8px 18px rgba(184, 91, 124, 0.25);
+}
+
+
+
+.hidden {
+
+    display: none;
+
+}
+
+
+
+.question {
+    padding: 18px 0 4px;
+}
+
+.heart {
+    font-size: 75px;
+    color: #d66f92;
+    animation: heartbeat 1.2s infinite;
+}
+
+
+
+.question h1 {
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(1.7rem, 6vw, 2.1rem);
+    line-height: 1.2;
+    margin: 15px 0;
+    color: #b95e7e;
+}
+
+
+
+.question p {
+
+    line-height: 1.7;
+
+    margin: 15px 0;
+
+    color: #8d6c79;
+}
+
+
+
+#userMessage {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin: 15px 0;
+
+    border: 1px solid #eccbd7;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+    color: #654452;
+    background: #fffafb;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#userMessage::placeholder {
+    color: #ad929d;
+}
+
+#userMessage:focus {
+    border-color: #cf7695;
+    box-shadow: 0 0 0 4px rgba(207, 118, 149, 0.12);
+    outline: none;
+}
+
+.yes-btn {
+    background: linear-gradient(135deg, #df7f9f, #ca6b8d);
+    color: white;
+    font-size: 17px;
+    padding: 14px 35px;
+    box-shadow: 0 7px 18px rgba(190, 92, 126, 0.22);
+}
+
+.yes-btn:hover {
+    box-shadow: 0 10px 22px rgba(190, 92, 126, 0.3);
+}
+
+.no-btn {
+    background: #f1edef;
+    color: #766b70;
+    padding: 14px 35px;
+}
+
+.no-btn:hover {
+    background: #e8e1e4;
+}
+
+#answerMessage {
+    font-size: 17px;
+    font-weight: bold;
+    color: #b85478;
+    overflow-wrap: anywhere;
+}
+
+
+
+button:disabled {
+
+    opacity: 0.5;
+
+    cursor: wait;
+
+}
+
+
+
+@keyframes heartbeat {
+
+    0%, 100% { transform: scale(1); }
+
+    50% { transform: scale(1.2); }
+
+}
+
+
+
+@media(max-width:480px) {
+    body {
+        align-items: flex-start;
+        padding: 16px 12px;
+    }
+
+    .container {
+        padding: 28px 20px;
+        border-radius: 22px;
+    }
+
+    .photo-wrapper {
+        max-height: none;
+    }
+
+    .photo-wrapper img {
+        max-height: min(68vw, 262px);
+    }
+
+    .navigation {
+        gap: 10px;
+    }
+
+    .navigation button {
+        padding: 12px 16px;
+    }
+
+    .answer-buttons {
+        flex-wrap: wrap;
+    }
+
+    .answer-buttons button {
+        flex: 1 1 120px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<main class="container">
+
+
+
+    <header>
+
+        <p class="subtitle">A little something for you ♡</p>
+
+        <h1>Our Little Story</h1>
+
+    </header>
+
+
+
+    <!-- GALLERY -->
+
+    <section id="gallery" class="gallery">
+
+
+
+        <div class="photo-wrapper">
+
+            <img id="photo" src="images/1.jpg" alt="Our memory">
+
+        </div>
+
+
+
+        <h2 id="photoTitle"></h2>
+
+
+
+        <p id="description"></p>
+
+
+
+        <p id="counter"></p>
+
+
+
+        <div class="progress">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+
+
+        <div class="navigation">
+
+            <button id="prevBtn" onclick="prevPhoto()">
+
+                ← Previous
+
+            </button>
+
+
+
+            <button id="nextBtn" onclick="nextPhoto()">
+
+                Next →
+
+            </button>
+
+        </div>
+
+
+
+    </section>
+
+
+
+    <!-- FINAL QUESTION -->
+
+    <section id="question" class="question hidden">
+
+
+
+        <div class="heart">♡</div>
+
+
+
+        <h1>Will You Be My Girlfriend?</h1>
+
+
+
+        <p>
+
+            I've saved these little moments,
+
+            but I want to make many more memories with you.
+
+        </p>
+
+
+
+        <textarea
+
+            id="userMessage"
+
+            placeholder="Write something for me... ❤️"
+
+            rows="3"
+
+            maxlength="2000"
+
+        ></textarea>
+
+
+
+        <div class="answer-buttons">
+
+
+
+            <button class="yes-btn"
+
+                onclick="submitAnswer('Yes')">
+
+                Yes! ♡
+
+            </button>
+
+
+
+            <button class="no-btn"
+
+                onclick="submitAnswer('No')">
+
+                No
+
+            </button>
+
+
+
+        </div>
+
+
+
+        <p id="answerMessage"></p>
+
+
+
+    </section>
+
+
+
+</main>
+
+
+
+<script>
+
+
+
+// ========================================
+
+// GOOGLE SHEETS API
+
+// ========================================
+
+
+
+const API_URL = "https://script.google.com/macros/s/AKfycbw-TkA-T6J_hUjfL066aVj4b71tk6_8_QNDsyhwg3pDhOQlS2SCj2TEsvCFKU-Fc3Kh-g/exec";
+
+
+
+// ========================================
+
+// PHOTO DATA
+
+// ========================================
+
+
+
+const photos = [
+
+    {
+
+        image: "images/1.JPG",
+
+        title: "Our First Memory ♡",
+
+        description: "เจอเธอครั้งแรกยอมรับเลยว่ารูสึกแปลกใจ มาเจอเด็กกระโปกแบบนี้ได้ไง"
+
+    },
+
+    {
+
+        image: "images/2.JPG",
+
+        title: "Your Smile",
+
+        description: "ตอนเห็นยิ้มนะเป็นอะไรที่รู้สึกดีมากกกกก โลกสดใสขึ้นพันเท่า"
+
+    },
+
+    {
+
+        image: "images/3.JPG",
+
+        title: "Little Moments",
+
+        description: "ตอนได้ออกไปเที่ยวกับเธอถึงจะเหนื่อยแต่ก็สนุกมากกกคุ้มสุดๆ เสียดายถ่ายรูปเก็บไว้น้อยมาก"
+
+    },
+
+    {
+
+        image: "images/4.JPG",
+
+        title: "Beautiful Day",
+
+        description: "รูปนี้สวยที่สุดน่ารักตะมุตะมิ"
+
+    },
+
+    {
+
+        image: "images/5.JPG",
+
+        title: "Not Beautiful Day",
+
+        description: "เธอโกรธเพราะเค้าไม่ฟังเธอที่เธอพูด ขอโทษนะค้าบบ แต่ก็อยากให้เธอใจเย็นๆกับเค้าหน่อยน้าา"
+
+    },
+
+    {
+
+        image: "images/6.JPG",
+
+        title: "Just You",
+
+        description: "เธอทำให้เค้าอยากอยู่ด้วยตลอดเวลาเลยยยยย"
+
+    },
+
+    {
+
+        image: "images/7.JPG",
+
+        title: "My Happiness",
+
+        description: "ขอบคุณสำหรับของขวัญวันเกิดน่ารักๆนะคับแค่ได้อยู่กับพี่ปังก็มีความสุขแล้ว"
+
+    },
+
+];
+
+
+
+// ========================================
+
+// GALLERY LOGIC
+
+// ========================================
+
+
+
+let currentIndex = 0;
+
+
+
+function showPhoto() {
+
+
+
+    const item = photos[currentIndex];
+
+
+
+    document.getElementById("photo").src = item.image;
+
+
+
+    document.getElementById("photoTitle").textContent =
+
+        item.title;
+
+
+
+    document.getElementById("description").textContent =
+
+        item.description;
+
+
+
+    document.getElementById("counter").textContent =
+
+        `${currentIndex + 1} / ${photos.length}`;
+
+
+
+    document.getElementById("progressBar").style.width =
+
+        `${((currentIndex + 1) / photos.length) * 100}%`;
+
+
+
+    document.getElementById("prevBtn").disabled =
+
+        currentIndex === 0;
+
+
+
+    document.getElementById("nextBtn").textContent =
+
+        currentIndex === photos.length - 1
+
+        ? "Finish ♡"
+
+        : "Next →";
+
+}
+
+
+
+function nextPhoto() {
+
+
+
+    if (currentIndex < photos.length - 1) {
+
+
+
+        currentIndex++;
+
+        showPhoto();
+
+
+
+    } else {
+
+
+
+        showQuestion();
+
+
+
+    }
+
+}
+
+
+
+function prevPhoto() {
+
+
+
+    if (currentIndex > 0) {
+
+
+
+        currentIndex--;
+
+        showPhoto();
+
+
+
+    }
+
+}
+
+
+
+// ========================================
+
+// SHOW FINAL QUESTION
+
+// ========================================
+
+
+
+function showQuestion() {
+
+
+
+    document.getElementById("gallery")
+
+        .classList.add("hidden");
+
+
+
+    document.getElementById("question")
+
+        .classList.remove("hidden");
+
+
+
+}
+
+
+
+// ========================================
+
+// SUBMIT ANSWER TO GOOGLE SHEETS
+
+// ========================================
+
+
+
+let isSubmitting = false;
+
+
+
+async function submitAnswer(answer) {
+
+
+
+    if (isSubmitting) return;
+
+
+
+    if (!API_URL.startsWith("https\://script.google.com/macros/s/AKfycbw-TkA-T6J_hUjfL066aVj4b71tk6_8_QNDsyhwg3pDhOQlS2SCj2TEsvCFKU-Fc3Kh-g/exec")) {
+
+        alert("Please configure your Google Apps Script URL.");
+
+        return;
+
+    }
+
+
+
+    isSubmitting = true;
+
+
+
+    const buttons = document.querySelectorAll(".answer-buttons button");
+
+
+
+    const message = document.getElementById("userMessage").value;
+
+
+
+    const answerMessage =
+
+        document.getElementById("answerMessage");
+
+
+
+    buttons.forEach(button => button.disabled = true);
+
+
+
+    answerMessage.textContent = "Sending your answer... ❤️";
+
+
+
+    const data = {
+
+        answer: answer,
+
+        message: message,
+
+        timestamp: new Date().toISOString()
+
+    };
+
+
+
+    try {
+
+
+
+        await fetch(API_URL, {
+
+            method: "POST",
+
+            mode: "no-cors",
+
+            headers: {
+
+                "Content-Type": "text/plain;charset=utf-8"
+
+            },
+
+            body: JSON.stringify(data)
+
+        });
+
+
+
+        // no-cors returns an opaque response.
+
+        // This confirms the request was sent,
+
+        // but cannot verify the actual Sheet write.
+
+
+
+        answerMessage.textContent =
+
+            answer === "Yes"
+
+            ? "YAY!!! ❤️ Thank you for making me happy!"
+
+            : "Thank you for being honest. ❤️";
+
+
+
+        document.querySelector(".heart").textContent =
+
+            answer === "Yes" ? "❤️" : "♡";
+
+
+
+        document.querySelector(".answer-buttons").style.display =
+
+            "none";
+
+
+
+        document.getElementById("userMessage").disabled = true;
+
+
+
+    } catch (error) {
+
+
+
+        answerMessage.textContent =
+
+            "Unable to send. Please try again.";
+
+
+
+        buttons.forEach(button => button.disabled = false);
+
+
+
+        isSubmitting = false;
+
+
+
+    }
+
+
+
+}
+
+
+
+// ========================================
+
+// INITIALIZE
+
+// ========================================
+
+
+
+showPhoto();
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
